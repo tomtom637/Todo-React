@@ -44,13 +44,19 @@ const Container = styled.div`
   text-align: center;
   margin: 0 auto;
   padding: 0 2rem;
-
   h1 {
     font-size: 48px;
     color: #f3cf78;
     margin: 2rem auto 2rem auto;
     padding: 1.5rem;
     border-bottom: 20px dotted rgba(243, 207, 120, 0.04);
+  }
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 30px;
+      border-bottom: none;
+      padding: 0;
+    }
   }
 `;
 
@@ -61,33 +67,42 @@ function InputSentence(props) {
     setInputValue(e.target.value);
   };
   const handleKeyDown = e => {
-    if (e.keyCode === 13 && inputValue !== '') {
+    if (e.keyCode === 13 && inputValue.trim()) {
       props.lift(e.target.value);
       setInputValue('');
     }
   };
   return (
-    <Input
-      type="text"
-      onKeyDown={handleKeyDown}
-      onChange={handleChange}
-      value={inputValue}
-      placeholder="Add a todo here"
-    />
+    <InputDiv>
+      <input
+        type="text"
+        onKeyDown={handleKeyDown}
+        onChange={handleChange}
+        value={inputValue}
+        placeholder="Add a todo here"
+      />
+    </InputDiv>
   );
 }
-const Input = styled.input`
-  color: #ddd;
-  font-style: italic;
-  display: block;
-  font-size: 17px;
-  width: 100%;
-  padding: 0.5rem;
-  margin: 1rem auto 5rem auto;
-  background: #333;
-  border: none;
-  border-bottom: 10px solid rgba(243, 207, 120, 0.1);
-  outline-color: rgba(243, 207, 120, 0.1);
+const InputDiv = styled.div`
+  input {
+    color: #ddd;
+    font-style: italic;
+    display: block;
+    font-size: 17px;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 1rem auto 5rem auto;
+    background: #333;
+    border: none;
+    border-bottom: 10px solid rgba(243, 207, 120, 0.1);
+    outline-color: rgba(243, 207, 120, 0.1);
+  }
+  @media (max-width: 480px) {
+    input {
+      margin: 0 auto 2rem auto;
+    }
+  }
 `;
 
 /* PARAG */
@@ -97,6 +112,12 @@ function Parag(props) {
       key={todo.key}
       onClick={e => {
         props.del(todo.key);
+      }}
+      onTouchStart={e => {
+        e.target.classList.add('active');
+      }}
+      onTouchEnd={e => {
+        e.target.classList.remove('active');
       }}
     >
       {todo.todo}
@@ -118,6 +139,13 @@ const P = styled.p`
     background: #2e2e2e;
   }
   &&:active {
+    transform: rotate(3deg) scale(1.08);
+    text-decoration: line-through;
+    color: #ce5b5b;
+    border-left: 5px solid #ce5b5b;
+    border-right: 5px solid #ce5b5b;
+  }
+  &&.active {
     transform: rotate(3deg) scale(1.08);
     text-decoration: line-through;
     color: #ce5b5b;
