@@ -11,6 +11,10 @@
   color: #111;
 }
 
+*:focus {
+  outline: 1px solid #47433a;
+}
+
 html {
   background: #333;
   box-sizing: inherit;

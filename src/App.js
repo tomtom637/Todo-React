@@ -96,13 +96,12 @@ const InputDiv = styled.div`
     background: #333;
     border: none;
     border-bottom: 10px solid rgba(243, 207, 120, 0.1);
-    outline-color: rgba(243, 207, 120, 0.1);
+    }
   }
   @media (max-width: 480px) {
     input {
       margin: 0 auto 2rem auto;
     }
-  }
 `;
 
 /* PARAG */
@@ -110,7 +109,7 @@ function Parag(props) {
   return props.allTodos.map(todo => (
     <P
       key={todo.key}
-      onClick={e => {
+      onClick={() => {
         props.del(todo.key);
       }}
       onTouchStart={e => {
@@ -126,6 +125,7 @@ function Parag(props) {
 }
 const P = styled.p`
   color: #ddd;
+  position: relative;
   text-align: center;
   font-size: 1.2rem;
   padding: 0.7rem;
